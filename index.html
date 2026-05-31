@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Shoes Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --primary: #2874f0;
+            --primary-dark: #1a5dc8;
+            --accent: #ff6161;
+            --green: #26a541;
+            --green-light: #e8f5e9;
+            --yellow: #f8d000;
+            --bg: #f1f3f6;
+            --white: #fff;
+            --border: #e0e0e0;
+            --text: #212121;
+            --muted: #878787;
+            --shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 0 20px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .header-logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-dot {
+            width: 8px; height: 8px;
+            background: var(--yellow);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 13px;
+        }
+
+        .header-right a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        /* BREADCRUMB */
+        .breadcrumb {
+            background: white;
+            padding: 10px 16px;
+            font-size: 12px;
+            color: var(--muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .breadcrumb span { color: var(--primary); }
+
+        /* MAIN LAYOUT */
+        .main {
+            max-width: 900px;
+            margin: 12px auto;
+            padding: 0 12px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        @media (min-width: 700px) {
+            .main {
+                grid-template-columns: 380px 1fr;
+                align-items: start;
+            }
+        }
+
+        /* PRODUCT CARD */
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        /* IMAGE GALLERY */
+        .gallery-wrapper {
+            background: #fafafa;
+            border-bottom: 1px solid var(--border);
+            padding: 12px;
+        }
+
+        .main-image-container {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: #f5f5f5;
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* LANDSCAPE FIX: make gallery wider in landscape */
+        @media (orientation: landscape) and (max-width: 900px) {
+            .main-image-container {
+                aspect-ratio: 16 / 9;
+            }
+        }
+
+        .main-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            transition: transform 0.3s ease;
+        }
+
+        .main-image-container:hover img {
+            transform: scale(1.04);
+        }
+
+        .thumbs {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .thumbs::-webkit-scrollbar { height: 4px; }
+        .thumbs::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+
+        .thumb {
+            flex: 0 0 64px;
+            height: 64px;
+            border-radius: 6px;
+            border: 2px solid transparent;
+            overflow: hidden;
+            cursor: pointer;
+            background: #f0f0f0;
+            transition: border-color 0.2s;
+        }
+
+        .thumb.active { border-color: var(--primary); }
+
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* BADGES */
+        .badge-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            padding: 12px 16px 0;
+        }
+
+        .badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-sale { background: var(--accent); color: white; }
+        .badge-hot { background: #ff9800; color: white; }
+        .badge-free { background: var(--green); color: white; }
+
+        /* PRODUCT INFO */
+        .product-info {
+            padding: 12px 16px 16px;
+        }
+
+        .brand {
+            font-size: 13px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .product-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 8px;
+        }
+
+        /* RATING */
+        .rating-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .stars-badge {
+            background: var(--green);
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .rating-count { font-size: 13px; color: var(--muted); }
+
+        /* PRICE */
+        .price-section {
+            border-top: 1px dashed var(--border);
+            border-bottom: 1px dashed var(--border);
+            padding: 12px 0;
+            margin-bottom: 14px;
+        }
+
+        .price-main {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .price-original {
+            font-size: 15px;
+            color: var(--muted);
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+
+        .price-off {
+            font-size: 15px;
+            color: var(--accent);
+            font-weight: 700;
+            margin-left: 6px;
+        }
+
+        .emi-note {
+            font-size: 12px;
+            color: var(--primary);
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        /* OFFER BOX */
+        .offer-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+            border: 1px solid #c8e6c9;
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .offer-icon { font-size: 22px; }
+
+        .offer-text strong {
+            display: block;
+            color: var(--green);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .offer-text span { font-size: 12px; color: #555; }
+
+        /* DELIVERY */
+        .delivery-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: #444;
+            margin-bottom: 14px;
+        }
+
+        .delivery-icon { font-size: 20px; }
+        .delivery-row strong { color: var(--green); }
+
+        /* SIZE SELECTOR */
+        .field-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .size-grid {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+
+        .size-btn {
+            width: 48px;
+            height: 48px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            background: white;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .size-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .size-btn.selected { border-color: var(--primary); background: var(--primary); color: white; }
+
+        /* FORM FIELDS */
+        .form-section { margin-bottom: 14px; }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Nunito', sans-serif;
+            color: var(--text);
+            background: white;
+            transition: border-color 0.2s;
+            outline: none;
+            margin-bottom: 10px;
+        }
+
+        .form-input:focus { border-color: var(--primary); }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* CTA BUTTONS */
+        .cta-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .btn-cart {
+            flex: 1;
+            padding: 14px;
+            background: #ff9f00;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 800;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn-cart:active { transform: scale(0.98); }
+        .btn-cart:hover { background: #f08000; }
+
+        .btn-buy {
+            flex: 1;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 800;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn-buy:active { transform: scale(0.98); }
+        .btn-buy:hover { background: var(--primary-dark); }
+
+        /* PAYMENT SECTION */
+        .payment-section {
+            background: #f8fafc;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 14px;
+        }
+
+        .payment-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .payment-icons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .pay-icon {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 5px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #555;
+        }
+
+        .razorpay-btn-wrapper {
+            text-align: center;
+        }
+
+        /* TRUST BADGES */
+        .trust-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 12px;
+        }
+
+        .trust-icon { font-size: 20px; }
+
+        .trust-text {
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+
+        .trust-text strong {
+            display: block;
+            color: var(--text);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* HIGHLIGHTS */
+        .highlights {
+            background: white;
+            border-radius: 8px;
+            padding: 14px 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .highlights-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 13px;
+        }
+
+        .highlight-item:last-child { border-bottom: none; }
+
+        .highlight-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        /* NOTICE */
+        .notice {
+            background: #fff8e1;
+            border: 1px solid #ffe082;
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 13px;
+            color: #795548;
+            text-align: center;
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 20px 16px;
+            font-size: 12px;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+            background: white;
+        }
+
+        footer strong { color: var(--primary); }
+
+        /* LANDSCAPE SPECIFIC */
+        @media (orientation: landscape) and (max-width: 900px) {
+            .main {
+                grid-template-columns: 45% 55%;
+                margin: 8px auto;
+            }
+
+            .product-title { font-size: 15px; }
+            .price-main { font-size: 22px; }
+        }
+
+        /* Scrollbar hide for thumbs on mobile */
+        .thumbs { scrollbar-width: thin; scrollbar-color: #ccc transparent; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-logo">
+        👟 ShoeKart <span class="logo-dot"></span>
+    </div>
+    <div class="header-right">
+        <a href="#">🛒 Cart</a>
+        <a href="#">Login</a>
+    </div>
+</header>
+
+<div class="breadcrumb">
+    Home &rsaquo; Footwear &rsaquo; Men's Shoes &rsaquo; <span>Premium Running Shoes</span>
+</div>
+
+<div class="main">
+
+    <!-- LEFT: Gallery -->
+    <div class="product-card">
+        <div class="gallery-wrapper">
+            <div class="main-image-container" id="mainImgWrap">
+                <img id="mainImg" src="images/main-shoe.jpg" alt="Premium Running Shoes"
+                     onerror="this.src='https://placehold.co/600x600/f5f5f5/878787?text=Shoe+Image'">
+            </div>
+            <div class="thumbs" id="thumbRow">
+                <div class="thumb active" onclick="switchImg(this, 'images/main-shoe.jpg')">
+                    <img src="images/main-shoe.jpg" alt="View 1" onerror="this.src='https://placehold.co/64x64/e8eaf6/5c6bc0?text=1'">
+                </div>
+                <div class="thumb" onclick="switchImg(this, 'images/photo2.jpg')">
+                    <img src="images/photo2.jpg" alt="View 2" onerror="this.src='https://placehold.co/64x64/e8f5e9/388e3c?text=2'">
+                </div>
+                <div class="thumb" onclick="switchImg(this, 'images/photo3.jpg')">
+                    <img src="images/photo3.jpg" alt="View 3" onerror="this.src='https://placehold.co/64x64/fff3e0/f57c00?text=3'">
+                </div>
+                <div class="thumb" onclick="switchImg(this, 'images/photo4.jpg')">
+                    <img src="images/photo4.jpg" alt="View 4" onerror="this.src='https://placehold.co/64x64/fce4ec/c2185b?text=4'">
+                </div>
+                <div class="thumb" onclick="switchImg(this, 'images/photo5.jpg')">
+                    <img src="images/photo5.jpg" alt="View 5" onerror="this.src='https://placehold.co/64x64/e3f2fd/1976d2?text=5'">
+                </div>
+                <div class="thumb" onclick="switchImg(this, 'images/photo6.jpg')">
+                    <img src="images/photo6.jpg" alt="View 6" onerror="this.src='https://placehold.co/64x64/f3e5f5/7b1fa2?text=6'">
+                </div>
+            </div>
+        </div>
+
+        <div class="badge-row">
+            <span class="badge badge-sale">70% OFF</span>
+            <span class="badge badge-hot">🔥 Hot Deal</span>
+            <span class="badge badge-free">Free Delivery</span>
+        </div>
+    </div>
+
+    <!-- RIGHT: Details -->
+    <div>
+        <div class="product-card" style="margin-bottom: 12px;">
+            <div class="product-info">
+
+                <div class="brand">Premium Footwear Co.</div>
+                <div class="product-title">Premium Running Shoes – Lightweight & Breathable</div>
+
+                <div class="rating-row">
+                    <div class="stars-badge">★ 4.3</div>
+                    <span class="rating-count">2,847 Ratings | 312 Reviews</span>
+                </div>
+
+                <div class="price-section">
+                    <div>
+                        <span class="price-main">₹299</span>
+                        <span class="price-original">₹999</span>
+                        <span class="price-off">70% off</span>
+                    </div>
+                    <div class="emi-note">✓ No Cost EMI available • Free delivery on all orders</div>
+                </div>
+
+                <div class="offer-box">
+                    <div class="offer-icon">🎁</div>
+                    <div class="offer-text">
+                        <strong>Special Launch Offer</strong>
+                        <span>Limited stock — only 18 pairs left at this price!</span>
+                    </div>
+                </div>
+
+                <div class="delivery-row">
+                    <div class="delivery-icon">🚚</div>
+                    <div>Delivery by <strong>Tomorrow, 6 PM</strong> · All India Available · COD Available</div>
+                </div>
+
+                <!-- SIZE -->
+                <div class="form-section">
+                    <div class="field-label">Select Size (UK)</div>
+                    <div class="size-grid">
+                        <button class="size-btn" onclick="selectSize(this)">6</button>
+                        <button class="size-btn" onclick="selectSize(this)">7</button>
+                        <button class="size-btn selected" onclick="selectSize(this)">8</button>
+                        <button class="size-btn" onclick="selectSize(this)">9</button>
+                        <button class="size-btn" onclick="selectSize(this)">10</button>
+                    </div>
+                </div>
+
+                <!-- CUSTOMER DETAILS -->
+                <div class="form-section">
+                    <div class="field-label">Delivery Details</div>
+                    <input type="text" class="form-input" placeholder="Full Name *" required>
+                    <input type="tel" class="form-input" placeholder="Mobile Number *" required>
+                    <textarea class="form-input" rows="3" placeholder="Full Delivery Address *" required></textarea>
+                </div>
+
+                <!-- CTA -->
+                <div class="cta-row">
+                    <button class="btn-cart">🛒 Add to Cart</button>
+                    <button class="btn-buy">⚡ Buy Now</button>
+                </div>
+
+                <!-- PAYMENT -->
+                <div class="payment-section">
+                    <div class="payment-title">💳 Secure Payment</div>
+                    <div class="payment-icons">
+                        <span class="pay-icon">UPI</span>
+                        <span class="pay-icon">Card</span>
+                        <span class="pay-icon">NetBanking</span>
+                        <span class="pay-icon">COD</span>
+                        <span class="pay-icon">Wallets</span>
+                    </div>
+                    <div class="razorpay-btn-wrapper">
+                        <form>
+                            <script src="https://checkout.razorpay.com/v1/payment-button.js"
+                                data-payment_button_id="pl_SvCzukVN7YlpCe" async></script>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- TRUST -->
+                <div class="trust-row">
+                    <div class="trust-item">
+                        <div class="trust-icon">🔒</div>
+                        <div class="trust-text"><strong>100% Secure</strong>Encrypted payment</div>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon">✅</div>
+                        <div class="trust-text"><strong>Genuine Product</strong>Brand certified</div>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon">🚚</div>
+                        <div class="trust-text"><strong>Fast Shipping</strong>Pan India delivery</div>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon">🎁</div>
+                        <div class="trust-text"><strong>Best Price</strong>Lowest online price</div>
+                    </div>
+                </div>
+
+                <div class="notice">
+                    ⚠️ <strong>Note:</strong> No return/exchange policy after purchase.<br>
+                    Please check size carefully before ordering.
+                </div>
+
+            </div>
+        </div>
+
+        <!-- HIGHLIGHTS -->
+        <div class="highlights">
+            <div class="highlights-title">Product Highlights</div>
+            <div class="highlight-item">
+                <div class="highlight-dot"></div>
+                <div>Lightweight EVA sole with superior cushioning for all-day comfort</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-dot"></div>
+                <div>Breathable mesh upper keeps your feet cool and dry</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-dot"></div>
+                <div>Non-slip rubber outsole for excellent grip on all surfaces</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-dot"></div>
+                <div>Ideal for running, walking, gym, and casual everyday use</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-dot"></div>
+                <div>Available in sizes 6–10 (UK) — all India delivery in 2–5 days</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 <strong>ShoeKart</strong> — Premium Footwear Store &nbsp;|&nbsp; All Rights Reserved<br>
+    <span style="font-size: 11px;">Secure payments powered by Razorpay &nbsp;·&nbsp; Pan India Delivery</span>
+</footer>
+
+<script>
+    function switchImg(thumb, src) {
+        document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+        const mainImg = document.getElementById('mainImg');
+        mainImg.style.opacity = '0';
+        mainImg.style.transition = 'opacity 0.2s';
+        setTimeout(() => {
+            mainImg.src = src;
+            mainImg.style.opacity = '1';
+        }, 150);
+    }
+
+    function selectSize(btn) {
+        document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+    }
+</script>
+
+</body>
+</html>
