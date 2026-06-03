@@ -582,8 +582,7 @@
         👟 ShoeKart <span class="logo-dot"></span>
     </div>
     <div class="header-right">
-        <a href="#">🛒 Cart</a>
-        <a href="#">Login</a>
+        <span style="background:#f8d000;color:#111;font-size:12px;font-weight:800;padding:4px 12px;border-radius:20px;letter-spacing:0.5px;">📋 PRE-BOOKING OPEN</span>
     </div>
 </header>
 
@@ -624,8 +623,8 @@
 
         <div class="badge-row">
             <span class="badge badge-sale">70% OFF</span>
-            <span class="badge badge-hot">🔥 Hot Deal</span>
-            <span class="badge badge-free">Free Delivery</span>
+            <span class="badge badge-hot">🔥 Limited Stock</span>
+            <span class="badge" style="background:#7c3aed;color:white;">📋 Pre-Booking Only</span>
         </div>
     </div>
 
@@ -648,25 +647,23 @@
                         <span class="price-original">₹999</span>
                         <span class="price-off">70% off</span>
                     </div>
-                    <div class="emi-note">✓ No Cost EMI available • Free delivery on all orders</div>
+                    <div class="emi-note">✓ Pre-Booking Price · Valid till 01 Jan 2027</div>
                 </div>
 
                 <div class="offer-box">
-                    <div class="offer-icon">🎁</div>
+                    <div class="offer-icon">📋</div>
                     <div class="offer-text">
-                        <strong>Special Launch Offer</strong>
-                        <span>Limited stock — only 18 pairs left at this price!</span>
+                        <strong>முன்பதிவு சலுகை (Pre-Booking Offer)</strong>
+                        <span>Stock availability அடிப்படையில் order confirm செய்யப்படும்</span>
                     </div>
-                </div>
-
-                <div class="delivery-row">
-                    <div class="delivery-icon">🚚</div>
-                    <div>Delivery by <strong>Tomorrow, 6 PM</strong> · All India Available · COD Available</div>
                 </div>
 
                 <!-- SIZE -->
                 <div class="form-section">
-                    <div class="field-label">Select Size (UK)</div>
+                    <div class="field-label" style="display:flex;align-items:center;justify-content:space-between;">
+                        <span>அளவு தேர்ந்தெடு · Select Size (UK)</span>
+                        <span style="font-size:11px;color:var(--primary);font-weight:700;text-transform:none;letter-spacing:0;cursor:pointer;">📏 Size Guide</span>
+                    </div>
                     <div class="size-grid">
                         <button class="size-btn" onclick="selectSize(this)">6</button>
                         <button class="size-btn" onclick="selectSize(this)">7</button>
@@ -676,35 +673,49 @@
                     </div>
                 </div>
 
+                <!-- QUICK PRE-BOOK BUTTON -->
+                <div class="quick-prebook-wrap">
+                    <div class="divider-label">
+                        <div class="divider-line"></div>
+                        <span>⚡ QUICK PRE-BOOK</span>
+                        <div class="divider-line"></div>
+                    </div>
+                    <button class="btn-prebook" onclick="scrollToPayment()">
+                        📋 &nbsp;முன்பதிவு செய்யுங்கள் &nbsp;·&nbsp; Pre-Book Now &nbsp;—&nbsp; ₹299
+                    </button>
+                    <div class="prebook-sub">
+                        <span>🔒 Razorpay Secured</span>
+                        <span>·</span>
+                        <span>✅ Stock Based Confirm</span>
+                        <span>·</span>
+                        <span>📅 Valid till Jan 2027</span>
+                    </div>
+                </div>
+
                 <!-- CUSTOMER DETAILS -->
                 <div class="form-section">
-                    <div class="field-label">Delivery Details</div>
-                    <input type="text" class="form-input" placeholder="Full Name *" required>
-                    <input type="tel" class="form-input" placeholder="Mobile Number *" required>
-                    <textarea class="form-input" rows="3" placeholder="Full Delivery Address *" required></textarea>
+                    <div class="field-label">உங்கள் விவரங்கள் (Pre-Booking Details)</div>
+                    <input type="text" class="form-input" placeholder="பெயர் / Full Name *" required>
+                    <input type="tel" class="form-input" placeholder="மொபைல் எண் / Mobile Number *" required>
+                    <textarea class="form-input" rows="3" placeholder="முகவரி / Full Address (Optional – for delivery if available)" ></textarea>
                 </div>
 
-                <!-- CTA -->
-                <div class="cta-row">
-                    <button class="btn-cart">🛒 Add to Cart</button>
-                    <button class="btn-buy">⚡ Buy Now</button>
-                </div>
-
-                <!-- PAYMENT -->
-                <div class="payment-section">
-                    <div class="payment-title">💳 Secure Payment</div>
-                    <div class="payment-icons">
-                        <span class="pay-icon">UPI</span>
-                        <span class="pay-icon">Card</span>
-                        <span class="pay-icon">NetBanking</span>
-                        <span class="pay-icon">COD</span>
-                        <span class="pay-icon">Wallets</span>
+                <!-- PRE-BOOK CTA -->
+                <div id="payment-section" style="margin-bottom:14px;">
+                    <div style="background:#7c3aed;color:white;text-align:center;padding:6px 12px;border-radius:8px 8px 0 0;font-size:12px;font-weight:700;letter-spacing:0.5px;">
+                        🔒 SECURE PRE-BOOKING · RAZORPAY POWERED
                     </div>
-                    <div class="razorpay-btn-wrapper">
+                    <div style="border:2px solid #7c3aed;border-top:none;border-radius:0 0 8px 8px;padding:14px;background:#faf5ff;text-align:center;">
+                        <p style="font-size:12px;color:#6d28d9;margin-bottom:10px;font-weight:600;">
+                            கீழே உள்ள button-ஐ click செய்து ₹299 செலுத்தி முன்பதிவு செய்யுங்கள்
+                        </p>
                         <form>
                             <script src="https://checkout.razorpay.com/v1/payment-button.js"
                                 data-payment_button_id="pl_SvCzukVN7YlpCe" async></script>
                         </form>
+                        <p style="font-size:11px;color:#9ca3af;margin-top:8px;">
+                            UPI · Card · NetBanking · Wallets accepted
+                        </p>
                     </div>
                 </div>
 
@@ -712,25 +723,54 @@
                 <div class="trust-row">
                     <div class="trust-item">
                         <div class="trust-icon">🔒</div>
-                        <div class="trust-text"><strong>100% Secure</strong>Encrypted payment</div>
+                        <div class="trust-text"><strong>100% Secure</strong>Razorpay encrypted</div>
                     </div>
                     <div class="trust-item">
                         <div class="trust-icon">✅</div>
                         <div class="trust-text"><strong>Genuine Product</strong>Brand certified</div>
                     </div>
                     <div class="trust-item">
-                        <div class="trust-icon">🚚</div>
-                        <div class="trust-text"><strong>Fast Shipping</strong>Pan India delivery</div>
+                        <div class="trust-icon">📋</div>
+                        <div class="trust-text"><strong>Pre-Booking</strong>Stock based confirm</div>
                     </div>
                     <div class="trust-item">
-                        <div class="trust-icon">🎁</div>
-                        <div class="trust-text"><strong>Best Price</strong>Lowest online price</div>
+                        <div class="trust-icon">🏪</div>
+                        <div class="trust-text"><strong>Store Pickup</strong>Ramgarh, Sonbhadra</div>
                     </div>
                 </div>
 
                 <div class="notice">
-                    ⚠️ <strong>Note:</strong> No return/exchange policy after purchase.<br>
-                    Please check size carefully before ordering.
+                    <div style="font-size:15px;font-weight:800;color:#92400e;margin-bottom:10px;">⚠️ முக்கிய அறிவிப்பு</div>
+
+                    <p style="margin-bottom:8px;text-align:left;">இந்த இணையதளம் <strong>முன்பதிவுக்காக (Pre-Booking) மட்டுமே</strong> பயன்படுத்தப்படுகிறது.</p>
+
+                    <ul style="text-align:left;padding-left:18px;line-height:2;margin-bottom:10px;">
+                        <li>தற்போது வீட்டு விநியோகம் (Home Delivery) உறுதி செய்யப்படவில்லை.</li>
+                        <li>விநியோக வசதி கிடைத்தால், வாடிக்கையாளர் வழங்கிய முகவரிக்கு பொருள் அனுப்பப்படும்.</li>
+                        <li>விநியோக வசதி இல்லாத சூழலில், வாடிக்கையாளர் <strong>நேரடியாக கடைக்கு வந்து</strong> பொருளைப் பெற்றுக்கொள்ள வேண்டும்.</li>
+                        <li>பெயர், மொபைல் எண் மற்றும் முகவரியை சரியாக வழங்க வேண்டும்.</li>
+                        <li>தவறான அல்லது முழுமையற்ற முகவரி காரணமாக ஏற்படும் பிரச்சினைகளுக்கு வாடிக்கையாளரே பொறுப்பு.</li>
+                        <li>அனைத்து ஆர்டர்களும் <strong>பொருள் இருப்பு (Stock Availability)</strong> அடிப்படையில் உறுதிப்படுத்தப்படும்.</li>
+                        <li>பணம் செலுத்திய பிறகு ஆர்டர் விவரங்களை பாதுகாப்பாக வைத்திருக்கவும்.</li>
+                        <li>இந்த முன்பதிவு சலுகை <strong>01 ஜனவரி 2027 வரை</strong> மட்டுமே செல்லுபடியாகும்.</li>
+                    </ul>
+
+                    <div style="background:#fef3c7;border:1px solid #fcd34d;border-radius:8px;padding:10px 14px;margin-bottom:10px;text-align:left;">
+                        <div style="font-weight:800;color:#78350f;margin-bottom:6px;font-size:13px;">📜 விதிமுறைகள் &amp; நிபந்தனைகள் (Terms &amp; Conditions)</div>
+                        <ul style="padding-left:16px;line-height:2;color:#78350f;font-size:13px;">
+                            <li>பொருள் கிடைப்பதைப் பொறுத்து மட்டுமே ஆர்டர் உறுதி செய்யப்படும்.</li>
+                            <li>தவறான முகவரியால் பார்சல் திரும்ப வந்தால் கூடுதல் கட்டணம் வசூலிக்கப்படலாம்.</li>
+                            <li>வாடிக்கையாளர் வழங்கிய தகவல்களின் துல்லியத்திற்குப் வாடிக்கையாளரே பொறுப்பு.</li>
+                            <li>தற்போதைய சூழ்நிலைக்கு ஏற்ப விநியோக முறை மாற்றப்படலாம்.</li>
+                        </ul>
+                    </div>
+
+                    <div style="background:#ede9fe;border:1px solid #c4b5fd;border-radius:8px;padding:10px 14px;text-align:left;">
+                        <div style="font-weight:800;color:#4c1d95;font-size:13px;">🏪 கடை முகவரி (Store Address)</div>
+                        <div style="color:#5b21b6;font-size:13px;margin-top:4px;line-height:1.7;">
+                            ராம்கர், சோன்பத்ர்,<br>உத்தரப் பிரதேசம்
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -757,7 +797,7 @@
             </div>
             <div class="highlight-item">
                 <div class="highlight-dot"></div>
-                <div>Available in sizes 6–10 (UK) — all India delivery in 2–5 days</div>
+                <div>Available in sizes 6–10 (UK) — Pre-booking open till 01 Jan 2027</div>
             </div>
         </div>
     </div>
@@ -765,8 +805,8 @@
 </div>
 
 <footer>
-    © 2026 <strong>ShoeKart</strong> — Premium Footwear Store &nbsp;|&nbsp; All Rights Reserved<br>
-    <span style="font-size: 11px;">Secure payments powered by Razorpay &nbsp;·&nbsp; Pan India Delivery</span>
+    © 2026 <strong>ShoeKart</strong> — Pre-Booking Store &nbsp;|&nbsp; All Rights Reserved<br>
+    <span style="font-size: 11px;">Secure payments powered by Razorpay &nbsp;·&nbsp; ராம்கர், சோன்பத்ர், உத்தரப் பிரதேசம்</span>
 </footer>
 
 <script>
@@ -780,6 +820,11 @@
             mainImg.src = src;
             mainImg.style.opacity = '1';
         }, 150);
+    }
+
+    function scrollToPayment() {
+        var el = document.getElementById('payment-section');
+        if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
     }
 
     function selectSize(btn) {
